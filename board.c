@@ -32,6 +32,15 @@
 /*
  * Variables 
  */
+int restart_timeout;		/* Time to wait before restarting a level after Robbo dies */
+
+struct object board[MAX_W][MAX_H];	/* This is the game area. Each board location holds one and only one of the above objects */
+
+struct robbo robbo;
+
+struct viewport viewport;
+
+struct game_mechanics game_mechanics;
 
 
 /*

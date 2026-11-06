@@ -66,6 +66,24 @@ int gua_device;			/* Used when getting actions */
 int gua_id;			/* Used when getting actions */
 int gua_state;			/* Used when getting actions */
 
+#ifdef DEBUG_COLOUR_SELECT
+int debug_colour_select_r;
+int debug_colour_select_g;
+int debug_colour_select_b;
+int debug_colour_select_component;
+#endif
+int game_mode;
+int game_cycle_delay;		/* Defaults to 10ms */
+int game_cycle_limit;		/* 20, 25, 33 Hz */
+int temp_game_cycle_limit;	/* 20, 25, 33 Hz */
+int cycle_count;		/* A running cycle count used for time stamping objects */
+int introscreenselecteditem;
+int helppage;
+int helppageselecteditem;
+int options[104];
+int optionspage;
+int optionspageselecteditem[OPTIONS_SCREEN_PAGES];
+
 /* Function prototypes */
 Uint32 game_timer (Uint32 interval, void *param);
 void clean_up_before_exit (void);

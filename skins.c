@@ -59,6 +59,28 @@
 /* Variables */
 char *data_state[] =
   { "DATA_UNREAD", "DATA_READING", "DATA_READ", "DATA_INCOMPLETE" };
+SDL_Surface *wm_icon;
+SDL_Surface *icons;
+#ifdef LIGHTNINGENABLED
+SDL_Surface *efx;
+#endif
+SDL_Surface *ciphers;
+SDL_Surface *alpha;
+SDL_Surface *bgrnd;
+TTF_Font *font;
+
+SDL_Rect robbo_images_srcrect[8];
+SDL_Rect score_images_srcrect[10];
+SDL_Rect score_screw_srcrect;
+SDL_Rect score_key_srcrect;
+SDL_Rect score_bullet_srcrect;
+SDL_Rect score_level_srcrect;
+
+struct skin skins[MAX_SKINS];
+
+int skin_count;			/* How many skins are in the list */
+int selected_skin;		/* Which skin in the list is currently selected */
+int temp_selected_skin;
 
 /* Function prototypes */
 void read_skin_project_colours (void);

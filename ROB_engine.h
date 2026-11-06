@@ -118,7 +118,7 @@ typedef struct robobject {
 	void *pob;			/* Parent object pointer */
 } ROB_Object;
 
-ROB_Object *rob_lyr_pointer;
+extern ROB_Object *rob_lyr_pointer;
 
 typedef struct robevent {
 	ROB_Object *rob_object;

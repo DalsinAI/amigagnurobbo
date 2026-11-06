@@ -31,7 +31,7 @@
 #define DEFAULT_LEVEL_COLOUR 0x608050
 
 /* Variables */
-struct {
+struct level {
 	int w;
 	int h;
 	char author[60];		/* The text displayed on the authorline above the viewport */
@@ -39,7 +39,8 @@ struct {
 	Uint32 colour;			/* The colour if found or the default_level_colour if found in the level pack */
 	Uint32 colour_override;	/* The colour if found or the default_level_colour if found in the skinrc */
 	char notes[1024];		/* This is displayed nowhere now, but contains information about notes */
-} level;
+};
+extern struct level level;
 
 struct pack {
 	char filename[256];		/* e.g. /usr/local/share/gnurobbo/levels/original.dat or ~/.gnurobbo/levels/mylevels.dat */
@@ -49,11 +50,11 @@ struct pack {
 	int level_selected;		/* e.g. 3 is currently selected by the user */
 	int selected;			/* e.g. This pack is currently selected by the user */
 };
-struct pack level_packs[MAX_LEVEL_PACKS];
+extern struct pack level_packs[MAX_LEVEL_PACKS];
 
-int found_pack_count;		/* How many packs were physically found */
-int level_pack_count;		/* How many packs are in the list (historical entries from the rc are added to the end) */
-int selected_pack;			/* Which pack in the list is currently selected */
+extern int found_pack_count;		/* How many packs were physically found */
+extern int level_pack_count;		/* How many packs are in the list (historical entries from the rc are added to the end) */
+extern int selected_pack;			/* Which pack in the list is currently selected */
 
 /* Function prototypes */
 int level_init(void);
@@ -62,7 +63,3 @@ int find_all_dat_files(void);
 void read_level_packs(void);
 void sort_level_packs(void);
 int load_level_data(int level_number);
-
-
-
-

@@ -80,6 +80,16 @@ struct k_icon_init K_icons_list[] = {
 
 struct k_icons  K_icons[K_MAXICONS];
 
+struct k_view k_view;
+SDL_Surface    *k_icons;
+int K_exit;
+int             lastclick;
+int             K_direction;
+char            infostring[255];
+int             inforedraw;
+int             kmx,
+                kmy;
+
 /*
  * designer state variables 
  */
@@ -247,7 +257,7 @@ konstruktor_init()
     else if (level.w == 32 && level.h == 31)
 	gsize = 1;
     inforedraw = 1;
-    sprintf(infostring, txt_konstruktor_Welcome_to_GNU_Robbo_Designer);
+    sprintf(infostring, "%s", txt_konstruktor_Welcome_to_GNU_Robbo_Designer);
     robbo.keys = k_count_obj(KEY);	/* count keys on a map */
     robbo.bullets = k_count_obj(BULLET) * 9;	/* count bullets */
     game_area.redraw = REDRAW_EVERYTHING;
@@ -656,12 +666,12 @@ konstruktor_click()
 	nx = nx + k_view.x;
 	ny = ny + k_view.y;
 	if (selected != -1) {
-	    sprintf(infostring,
+	    sprintf(infostring, "%s",
 		    "                                            ");
 	    inforedraw = 1;
 	    if (K_icons[selected].game_obj == ROBBO) {
 		redraw_field(robbo.x, robbo.y);
-		sprintf(infostring, "Robbo");
+		sprintf(infostring, "%s", "Robbo");
 	    }
 	    /*
 	     * do we try to delete one of the counted objects? 
@@ -688,7 +698,7 @@ konstruktor_click()
 		create_object(nx, ny, BOMB2);
 	    switch (K_icons[selected].game_obj) {
 	    case GROUND:
-		sprintf(infostring, txt_konstruktor_Ground);
+		sprintf(infostring, "%s", txt_konstruktor_Ground);
 		break;
 	    case STOP:
 		sprintf(infostring, "%s (%d %s)",
@@ -745,7 +755,7 @@ konstruktor_click()
 			txt_konstruktor_on_map);
 		break;
 	    case EMPTY_FIELD:
-		sprintf(infostring, txt_konstruktor_Empty_Field);
+		sprintf(infostring, "%s", txt_konstruktor_Empty_Field);
 		break;
 	    case BUTTERFLY:
 		sprintf(infostring, "%s (%d %s)",
@@ -783,9 +793,9 @@ konstruktor_click()
 	    case WALL:
 		board[nx][ny].state = wallnumber;
 		if (wallnumber != 3)
-		    sprintf(infostring, txt_konstruktor_Wall);
+		    sprintf(infostring, "%s", txt_konstruktor_Wall);
 		else
-		    sprintf(infostring, txt_konstruktor_Black_Wall);
+		    sprintf(infostring, "%s", txt_konstruktor_Black_Wall);
 //		    game_area.redraw=REDRAW_EVERYTHING;
 		break;
 	    case TELEPORT:
@@ -905,7 +915,7 @@ konstruktor_click()
 		break;
 	    case K_RELOAD:
 		if (cnt == lastselected) {
-		    sprintf(infostring, txt_konstruktor_Level_reloaded);
+		    sprintf(infostring, "%s", txt_konstruktor_Level_reloaded);
 		    clear_screen();
 		    level_init();
 		    konstruktor_viewport_init();
@@ -923,7 +933,7 @@ konstruktor_click()
 		    k_redraw_all();
 		    cnt = -1;
 		} else {
-		    sprintf(infostring,
+		    sprintf(infostring, "%s",
 		    	txt_konstruktor_Reload_level_select_again_to_reload);
 		    lastclick = 50;
 		};
@@ -951,7 +961,7 @@ konstruktor_click()
 		inforedraw = 1;
 		break;
 	    case ROBBO:
-		sprintf(infostring, "Robbo");
+		sprintf(infostring, "%s", "Robbo");
 		inforedraw = 1;
 		break;
 	    case GUN:
@@ -1048,16 +1058,16 @@ konstruktor_click()
 		inforedraw = 1;
 		break;
 	    case EMPTY_FIELD:
-		sprintf(infostring, txt_konstruktor_Empty_Field);
+		sprintf(infostring, "%s", txt_konstruktor_Empty_Field);
 		inforedraw = 1;
 		break;
 	    case WALL:
 		if (cnt == selected)
 		    wallnumber = (wallnumber + 1) % 10;
 		if (wallnumber != 3)
-		    sprintf(infostring, txt_konstruktor_Wall);
+		    sprintf(infostring, "%s", txt_konstruktor_Wall);
 		else
-		    sprintf(infostring, txt_konstruktor_Black_Wall);
+		    sprintf(infostring, "%s", txt_konstruktor_Black_Wall);
 		inforedraw = 1;
 		break;
 	    case K_LASER:
@@ -1078,7 +1088,7 @@ konstruktor_click()
 		    teleportnr = (teleportnr % 11) + 1;
 		break;
 	    case GROUND:
-		sprintf(infostring, txt_konstruktor_Ground);
+		sprintf(infostring, "%s", txt_konstruktor_Ground);
 		inforedraw = 1;
 		break;
 	    case BIRD:
@@ -1101,16 +1111,16 @@ konstruktor_click()
 	    direction = (direction + 1) % 4;
 	    switch (direction) {
 	        case 0:
-	        sprintf(infostring, txt_konstruktor_Direction_right);
+	        sprintf(infostring, "%s", txt_konstruktor_Direction_right);
 	        break;
 	        case 1:
-	        sprintf(infostring, txt_konstruktor_Direction_down);
+	        sprintf(infostring, "%s", txt_konstruktor_Direction_down);
 	        break;
 	        case 2:
-	        sprintf(infostring, txt_konstruktor_Direction_left);
+	        sprintf(infostring, "%s", txt_konstruktor_Direction_left);
 	        break;
 	        case 3:
-	        sprintf(infostring, txt_konstruktor_Direction_up);
+	        sprintf(infostring, "%s", txt_konstruktor_Direction_up);
 	        break;
 		}
 		inforedraw = 1;
@@ -1119,13 +1129,13 @@ konstruktor_click()
 		ltype = (ltype + 1) % 3;
 		switch (ltype) {
 		case 0:
-		    sprintf(infostring, txt_konstruktor_Laser_Gun);
+		    sprintf(infostring, "%s", txt_konstruktor_Laser_Gun);
 		    break;
 		case 1:
-		    sprintf(infostring, txt_konstruktor_Blaster_Gun);
+		    sprintf(infostring, "%s", txt_konstruktor_Blaster_Gun);
 		    break;
 		case 2:
-		    sprintf(infostring, txt_konstruktor_Regular_Gun);
+		    sprintf(infostring, "%s", txt_konstruktor_Regular_Gun);
 		    break;
 		}
 		inforedraw = 1;
@@ -1136,23 +1146,23 @@ konstruktor_click()
 		movable = (rmstate & 1);
 	    switch (rmstate) {
 	        case 0:
-	        sprintf(infostring, txt_konstruktor_Fixed);
+	        sprintf(infostring, "%s", txt_konstruktor_Fixed);
 	        break;
 	        case 1:
-	        sprintf(infostring, txt_konstruktor_Moveable);
+	        sprintf(infostring, "%s", txt_konstruktor_Moveable);
 	        break;
 	        case 2:
-	        sprintf(infostring, txt_konstruktor_Rotating);
+	        sprintf(infostring, "%s", txt_konstruktor_Rotating);
 	        break;
 	        case 3:
-	        sprintf(infostring, txt_konstruktor_Moveable_Rotating);
+	        sprintf(infostring, "%s", txt_konstruktor_Moveable_Rotating);
 	        break;
 		}
 		inforedraw = 1;
 		break;
 	    case K_INSERT:
 		if (lastselected == cnt) {
-		    sprintf(infostring, txt_konstruktor_Level_created);
+		    sprintf(infostring, "%s", txt_konstruktor_Level_created);
 		    insert = 1;
 		    /*
 		     * Clear board 
@@ -1176,7 +1186,7 @@ konstruktor_click()
 		    cnt = -1;
 
 		} else {
-		    sprintf(infostring,
+		    sprintf(infostring, "%s",
 		    	txt_konstruktor_New_level_select_again_to_create);
 		    lastclick = 50;
 		}
@@ -1187,7 +1197,7 @@ konstruktor_click()
 		 * Clear board 
 		 */
 		if (lastselected == cnt) {
-		    sprintf(infostring, txt_konstruktor_Level_cleared);
+		    sprintf(infostring, "%s", txt_konstruktor_Level_cleared);
 		    robbo.screws = 0;
 		    robbo.keys = 0;
 		    robbo.bullets = 0;	/* Thunor: I added this as it was missing */
@@ -1206,7 +1216,7 @@ konstruktor_click()
 		    clear_entire_board();
 		    cnt = -1;
 		} else {
-		    sprintf(infostring,
+		    sprintf(infostring, "%s",
 		    	txt_konstruktor_Clear_level_select_again_to_clear);
 		    lastclick = 50;
 		}
@@ -1215,9 +1225,9 @@ konstruktor_click()
 	    case K_SAVE:
 		if (lastselected == cnt) {
 		    if (insert == 1)
-			sprintf(infostring, txt_konstruktor_New_level_appended_to_pack);
+			sprintf(infostring, "%s", txt_konstruktor_New_level_appended_to_pack);
 		    else
-			sprintf(infostring, txt_konstruktor_Changes_saved);
+			sprintf(infostring, "%s", txt_konstruktor_Changes_saved);
 		    cnt = -1;
 
 		    k_save_map();
@@ -1228,10 +1238,10 @@ konstruktor_click()
 		    lastclick = 50;
 
 		    if (insert == 1)
-			sprintf(infostring,
+			sprintf(infostring, "%s",
 				txt_konstruktor_Save_select_again_to_save_new_level);
 		    else
-			sprintf(infostring,
+			sprintf(infostring, "%s",
 				txt_konstruktor_Save_select_again_to_save_changes);
 		}
 		inforedraw = 1;
@@ -1297,7 +1307,7 @@ konstruktor_click()
 		    konstruktor_end();
 		    cnt = -1;
 		} else {
-		    sprintf(infostring,
+		    sprintf(infostring, "%s",
 		    	txt_konstruktor_Exit_designer_select_again_to_exit);
 		    lastclick = 50;	/* very long click is used as
 					 * another click */

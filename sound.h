@@ -78,15 +78,15 @@ struct snd_music {
 /*
  * Variables 
  */
-int sound;
-int temp_game_sound;
-int             sfx_vol;
-int temp_sfx_vol;
+extern int sound;
+extern int temp_game_sound;
+extern int             sfx_vol;
+extern int temp_sfx_vol;
 /*
  * if we do not support music, we assume, that volume is sfx_volume 
  */
 #ifdef HAVE_MUSIC
-int             volume;
+extern int             volume;
 #else
 #define volume sfx_vol
 #endif

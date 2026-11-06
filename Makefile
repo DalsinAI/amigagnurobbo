@@ -46,7 +46,7 @@ FONT_USE_SDL_TTF=-lSDL_ttf
 
 # You won't need to alter these
 TARGET=$(shell cat TARGET)
-SOURCES=$(wildcard *.c)
+SOURCES=$(sort $(wildcard *.c))
 OBJECTS=$(patsubst %.c, %.o, $(SOURCES))
 VERSION=$(shell cat VERSION)
 
@@ -61,7 +61,7 @@ SDL_CONFIG?=sdl-config
 
 
 
-CFLAGS+=-d -Wall  `$(SDL_CONFIG) --cflags` -DPLATFORM_PC -DVERSION=\"$(VERSION)\" $(SMOOTH_SCRL) $(LIGHTNING)\
+CFLAGS+=-Wall  `$(SDL_CONFIG) --cflags` -DPLATFORM_PC -DVERSION=\"$(VERSION)\" $(SMOOTH_SCRL) $(LIGHTNING)\
 	-DPACKAGE_DATA_DIR=\"$(PACKAGE_DATA_DIR)\" $(FONT_USE_PIXMAP) $(MUSIC) $(DESIGNER)
 LDFLAGS=
 # Use these instead for debugging and/or profiling (mainly intended for GNU Robbo developers)

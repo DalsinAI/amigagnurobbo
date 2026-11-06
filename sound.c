@@ -93,7 +93,16 @@ int             destroyed_playlist = 0;
 int             next_song = 0;
 int             absent = 1;
 int             tempvol = 0;
- /*******************/
+
+int sound;
+int temp_game_sound;
+int             sfx_vol;
+int temp_sfx_vol;
+#ifdef HAVE_MUSIC
+int             volume;
+#endif
+
+/*******************/
  /*
   * table of sounds 
   */

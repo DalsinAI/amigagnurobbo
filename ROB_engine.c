@@ -80,6 +80,8 @@ ROB_Object *rob_pressed_object = NULL;
 int rob_object_count = 0;
 char rob_last_error[ROB_ERROR_LENGTH];
 
+ROB_Object *rob_lyr_pointer;
+
 /* Function prototypes */
 int ROB_SetObjectZOrder(ROB_Object *rob_object, int position, ROB_Object *target);
 void ROB_FreeAllObjects(void);

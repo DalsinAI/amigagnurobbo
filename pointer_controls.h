@@ -53,8 +53,8 @@ struct pointercontrols {
 	int shoot_state;
 	int pad_type;
 };
-struct pointercontrols pointer_controls;
-struct pointercontrols temp_pointer_controls;
+extern struct pointercontrols pointer_controls;
+extern struct pointercontrols temp_pointer_controls;
 
 /* Function prototypes */
 void pointer_controls_event_processor(ROB_Event *rob_event);
