@@ -125,7 +125,7 @@
 #define EFFECT_NONE   -1
 
 /* Variables */
-int restart_timeout;		/* Time to wait before restarting a level after Robbo dies */
+extern int restart_timeout;		/* Time to wait before restarting a level after Robbo dies */
 
 struct Coords
 {
@@ -162,9 +162,9 @@ struct object
 #endif
   struct Coords icon[MAX_ICONS];	/* Coords of left-up point of icons drawed on bitmap */
 };
-struct object board[MAX_W][MAX_H];	/* This is the game area. Each board location holds one and only one of the above objects */
+extern struct object board[MAX_W][MAX_H];	/* This is the game area. Each board location holds one and only one of the above objects */
 
-struct
+struct robbo
 {
   int x;			/* Board x position */
   int y;			/* Board y position */
@@ -180,10 +180,11 @@ struct
   int blocked;			/* robbo cannot move - possible magnet moving */
   int blocked_direction;	/* where robbo should be moved after blocking */
   int teleporting;		/* Set to TRUE when Robbo is teleporting */
-} robbo;
+};
+extern struct robbo robbo;
 
 /* What is shown of the board is seen through this viewport */
-struct
+struct viewport
 {
   int x;			/* Board x position */
   int y;			/* Board y position */
@@ -199,15 +200,17 @@ struct
   int yoffset;
   int cycles_to_dest;
   int maximise;
-} viewport;
+};
+extern struct viewport viewport;
 
 /* Some game mechanics that I have made available for modification via the rcfile */
-struct
+struct game_mechanics
 {
   int sensible_bears;
   int sensible_questionmarks;
   int sensible_solid_lasers;
-} game_mechanics;
+};
+extern struct game_mechanics game_mechanics;
 
 /* Function prototypes */
 void update_game (void);

@@ -37,13 +37,14 @@
 #define RCFILE_SAVE_ON_CHANGE 1
 
 /* Variables */
-char path_resource_file[100];
+extern char path_resource_file[100];
 
-struct {
+struct rcfile {
 	int save_frequency;
-} rcfile;
+};
+extern struct rcfile rcfile;
 
-int temp_rcfile_save_frequency;
+extern int temp_rcfile_save_frequency;
 
 /* Function prototypes */
 int read_resource_file(char *filename);

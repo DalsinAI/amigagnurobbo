@@ -39,6 +39,9 @@ SDL_Rect toolbar_designer_image_srcrect;
 SDL_Rect toolbar_restart_image_srcrect;
 SDL_Rect toolbar_hide_image_srcrect;
 
+struct pointercontrols pointer_controls;
+struct pointercontrols temp_pointer_controls;
+
 /* Function prototypes */
 
 

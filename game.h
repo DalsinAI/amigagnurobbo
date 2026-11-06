@@ -184,25 +184,24 @@
 
 /* Variables */
 #ifdef DEBUG_COLOUR_SELECT
-int debug_colour_select_r;
-int debug_colour_select_g;
-int debug_colour_select_b;
-int debug_colour_select_component;
+extern int debug_colour_select_r;
+extern int debug_colour_select_g;
+extern int debug_colour_select_b;
+extern int debug_colour_select_component;
 #endif
-int sound;
-int game_mode;
-int game_cycle_delay;		/* Defaults to 10ms */
-int game_cycle_limit;		/* 20, 25, 33 Hz */
-int temp_game_cycle_limit;	/* 20, 25, 33 Hz */
-int cycle_count;		/* A running cycle count used for time stamping objects */
-int temp_game_sound;
-int temp_sfx_vol;
-int introscreenselecteditem;
-int helppage;
-int helppageselecteditem;
-int options[104];
-int optionspage;
-int optionspageselecteditem[OPTIONS_SCREEN_PAGES];
+extern int game_mode;
+extern int game_cycle_delay;		/* Defaults to 10ms */
+extern int game_cycle_limit;		/* 20, 25, 33 Hz */
+extern int temp_game_cycle_limit;	/* 20, 25, 33 Hz */
+extern int cycle_count;		/* A running cycle count used for time stamping objects */
+extern int temp_game_sound;
+extern int temp_sfx_vol;
+extern int introscreenselecteditem;
+extern int helppage;
+extern int helppageselecteditem;
+extern int options[104];
+extern int optionspage;
+extern int optionspageselecteditem[OPTIONS_SCREEN_PAGES];
 
 /* Function prototypes */
 int my_rand ();

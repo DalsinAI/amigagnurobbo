@@ -28,7 +28,11 @@
 #define UNDEFINED2 -2
 
 /* Variables */
+char path_resource_file[100];
 
+struct rcfile rcfile;
+
+int temp_rcfile_save_frequency;
 
 /* Function prototypes */
 

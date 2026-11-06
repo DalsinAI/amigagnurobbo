@@ -30,6 +30,14 @@
 /* Variables */
 extern char *data_state[];
 
+struct level level;
+
+struct pack level_packs[MAX_LEVEL_PACKS];
+
+int found_pack_count;		/* How many packs were physically found */
+int level_pack_count;		/* How many packs are in the list (historical entries from the rc are added to the end) */
+int selected_pack;			/* Which pack in the list is currently selected */
+
 /* Function prototypes */
 int transform_char (char c);
 

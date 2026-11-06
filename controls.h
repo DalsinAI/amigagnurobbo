@@ -85,21 +85,21 @@
 
 
 /* Variables */
-SDL_Joystick *joystick;
+extern SDL_Joystick *joystick;
 
-char default_joystick_name[MAX_JOYSTICK_NAME_LENGTH];
-int joystick_count;
-char joystick_list[MAX_JOYSTICKS][MAX_JOYSTICK_NAME_LENGTH];
+extern char default_joystick_name[MAX_JOYSTICK_NAME_LENGTH];
+extern int joystick_count;
+extern char joystick_list[MAX_JOYSTICKS][MAX_JOYSTICK_NAME_LENGTH];
 
 /* Configurable options */
-int key_repeat_delay;			/* 20 to 1000 ms */
-int temp_key_repeat_delay;		/* 20 to 1000 ms */
-int key_repeat_interval;		/* 20 to 1000 ms */
-int temp_key_repeat_interval;	/* 20 to 1000 ms */
-int default_joystick;
-int temp_default_joystick;
-int joystick_dead_zone;
-int temp_joystick_dead_zone;
+extern int key_repeat_delay;			/* 20 to 1000 ms */
+extern int temp_key_repeat_delay;		/* 20 to 1000 ms */
+extern int key_repeat_interval;		/* 20 to 1000 ms */
+extern int temp_key_repeat_interval;	/* 20 to 1000 ms */
+extern int default_joystick;
+extern int temp_default_joystick;
+extern int joystick_dead_zone;
+extern int temp_joystick_dead_zone;
 
 struct control {
 	int device;			/* Keyboard, joystick or mouse */
@@ -110,11 +110,11 @@ struct control {
 	int delay;			/* The initial delay in cycles before repeating - 0 disables the delay */
 	int interval;		/* The repeat interval in cycles - 0 disables the interval */
 };
-struct control user_controls[USER_CONTROLS];
-struct control temp_user_controls[USER_CONTROLS];
+extern struct control user_controls[USER_CONTROLS];
+extern struct control temp_user_controls[USER_CONTROLS];
 
-ROB_OpEnv gnurobbo_op_env;
-ROB_OpEnv temp_gnurobbo_op_env;
+extern ROB_OpEnv gnurobbo_op_env;
+extern ROB_OpEnv temp_gnurobbo_op_env;
 
 /* Function prototypes */
 int get_user_action(int *actionid, int pollall, int *device, int *id, int *state);

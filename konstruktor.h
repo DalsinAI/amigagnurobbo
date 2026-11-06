@@ -93,14 +93,15 @@ struct k_icon_init {
 
 /* Thunor: This is now being defined and declared at the same
  * time since we only require one of them */
-struct {
+struct k_view {
 	int x;
 	int y;
 	int w;
 	int h;
 	int offsetx;
 	int offsety;
-} k_view;
+};
+extern struct k_view k_view;
 
 
 
@@ -108,17 +109,17 @@ struct {
 
 
 
-SDL_Surface    *k_icons;
+extern SDL_Surface    *k_icons;
 
 /*
  * variables 
  */
-int K_exit;
-int             lastclick;
-int             K_direction;
-char            infostring[255];
-int             inforedraw;
-int             kmx,
+extern int K_exit;
+extern int             lastclick;
+extern int             K_direction;
+extern char            infostring[255];
+extern int             inforedraw;
+extern int             kmx,
                 kmy;
 /*
  * prototypes 

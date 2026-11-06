@@ -38,6 +38,15 @@
 /* Variables */
 SDL_Color bgcolor, fgcolor;	/* General purpose colours */
 SDL_Surface *image;		/* General purpose surface */
+SDL_Surface *screen;
+
+struct screen intro_screen;
+struct screen help_screen;
+struct screen options_screen;
+struct screen game_area;
+struct scoreline scoreline;
+struct authorline authorline;
+struct video video;
 
 /* Used for animating banners */
 int bannerstate = 0;

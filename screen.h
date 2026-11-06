@@ -49,43 +49,38 @@
 #define EFX_SHOOT 8
 
 /* Variables */
-SDL_Surface *screen;
+extern SDL_Surface *screen;
 
-struct {
+struct screen {
 	int redraw;			/* An ORed combination of REDRAW_* bits */
-} intro_screen;
+};
+extern struct screen intro_screen;
+extern struct screen help_screen;
+extern struct screen options_screen;
+extern struct screen game_area;
 
-struct {
-	int redraw;			/* An ORed combination of REDRAW_* bits */
-} help_screen;
-
-struct {
-	int redraw;			/* An ORed combination of REDRAW_* bits */
-} options_screen;
-
-struct {
-	int redraw;			/* An ORed combination of REDRAW_* bits */
-} game_area;
-
-struct {
+struct scoreline {
 	int xoffset;
 	int yoffset;
 	int redraw;			/* An ORed combination of SCORELINE_* bits */
-} scoreline;
+};
+extern struct scoreline scoreline;
 
-struct {
+struct authorline {
 	int xoffset;
 	int yoffset;
-} authorline;
+};
+extern struct authorline authorline;
 
-struct {
+struct video {
 	int xres;
 	int yres;
 	int field_size;
 	int fullscreen;		/* 0 or SDL_FULLSCREEN */
 	int xshift;
 	int yshift;
-} video;
+};
+extern struct video video;
 
 typedef struct msgbox {
 	char name[256];			/* A unique name */

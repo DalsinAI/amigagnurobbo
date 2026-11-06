@@ -84,6 +84,28 @@
 /* Variables */
 SDL_Event event;
 
+SDL_Joystick *joystick;
+
+char default_joystick_name[MAX_JOYSTICK_NAME_LENGTH];
+int joystick_count;
+char joystick_list[MAX_JOYSTICKS][MAX_JOYSTICK_NAME_LENGTH];
+
+/* Configurable options */
+int key_repeat_delay;			/* 20 to 1000 ms */
+int temp_key_repeat_delay;		/* 20 to 1000 ms */
+int key_repeat_interval;		/* 20 to 1000 ms */
+int temp_key_repeat_interval;	/* 20 to 1000 ms */
+int default_joystick;
+int temp_default_joystick;
+int joystick_dead_zone;
+int temp_joystick_dead_zone;
+
+struct control user_controls[USER_CONTROLS];
+struct control temp_user_controls[USER_CONTROLS];
+
+ROB_OpEnv gnurobbo_op_env;
+ROB_OpEnv temp_gnurobbo_op_env;
+
 /* Function prototypes */
 
 

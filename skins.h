@@ -44,22 +44,22 @@
 #define DESIGNER_OBJV_TILE_COLOUR 0x202020
 
 /* Variables */
-SDL_Surface *wm_icon;
-SDL_Surface *icons;
+extern SDL_Surface *wm_icon;
+extern SDL_Surface *icons;
 #ifdef LIGHTNINGENABLED
-SDL_Surface *efx;
+extern SDL_Surface *efx;
 #endif
-SDL_Surface *ciphers;
-SDL_Surface *alpha;
-SDL_Surface *bgrnd;
-TTF_Font *font;
+extern SDL_Surface *ciphers;
+extern SDL_Surface *alpha;
+extern SDL_Surface *bgrnd;
+extern TTF_Font *font;
 
-SDL_Rect robbo_images_srcrect[8];
-SDL_Rect score_images_srcrect[10];
-SDL_Rect score_screw_srcrect;
-SDL_Rect score_key_srcrect;
-SDL_Rect score_bullet_srcrect;
-SDL_Rect score_level_srcrect;
+extern SDL_Rect robbo_images_srcrect[8];
+extern SDL_Rect score_images_srcrect[10];
+extern SDL_Rect score_screw_srcrect;
+extern SDL_Rect score_key_srcrect;
+extern SDL_Rect score_bullet_srcrect;
+extern SDL_Rect score_level_srcrect;
 
 struct skin
 {
@@ -85,11 +85,11 @@ struct skin
   Uint32 designer_OBJS_tile_colour;
   Uint32 designer_OBJV_tile_colour;
 };
-struct skin skins[MAX_SKINS];
+extern struct skin skins[MAX_SKINS];
 
-int skin_count;			/* How many skins are in the list */
-int selected_skin;		/* Which skin in the list is currently selected */
-int temp_selected_skin;
+extern int skin_count;			/* How many skins are in the list */
+extern int selected_skin;		/* Which skin in the list is currently selected */
+extern int temp_selected_skin;
 
 /* Function prototypes */
 int find_all_skins (void);
