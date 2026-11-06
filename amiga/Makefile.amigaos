@@ -1,0 +1,94 @@
+# GNU Robbo 0.68 for AmigaOS 3.x, 68040/68060 + FPU, on OpenGPU's SDL 1.2
+# (sdl12-compat).
+#
+#   make -f amiga/Makefile.amigaos -j2 dist \
+#        STOVE=/path/to/openamigagcc-16.2.0-open4 \
+#        NDK=/path/to/OpenNDK/Include_H SDLKIT=/path/to/opengpu-sdk \
+#        DEPS=/path/to/m68k-amigaos
+#
+# Upstream's Makefile's sources (every *.c) and its PC build's options
+# (the level designer, smooth scrolling, lightning; SDL_ttf fonts), without
+# music, as Debian builds it (the free source has no music or sounds).
+# SDLKIT is the OpenGPU developer kit: libSDL.a, sdl12-compat on
+# SDL2.module. It has no SDL_image, SDL_mixer or SDL_ttf 1.2: the Team's
+# amiga/sdl_image_lite.c (PNG on libpng; BMP through SDL),
+# amiga/sdl_mixer_lite.c (WAV) and SDL_ttf 2.0.11 (amiga/sdl_ttf, on the
+# Team's static FreeType) stand in. DEPS has the Team's static FreeType,
+# libpng, zlib and bzip2 (/mnt/amigachrome/team2/deps/m68k-amigaos).
+# $HOME is the drawer's user/ (amiga/amiga_env.c, -Wl,--wrap=getenv).
+
+STOVE   ?= $(HOME)/CradleLab/toolchain/openamigagcc-16.2.0-open4-x86_64-linux
+NDK     ?= $(HOME)/CradleLab/gfopensdk/OpenNDK/Include_H
+SDLKIT  ?= /mnt/amigachrome/team2/deps/opengpu-sdk
+DEPS    ?= /mnt/amigachrome/team2/deps/m68k-amigaos
+CC      = $(STOVE)/bin/m68k-amigaos-gcc
+STRIP   = $(STOVE)/bin/m68k-amigaos-strip
+CPU     ?= -m68040 -m68881
+# -fno-tree-loop-distribute-patterns: GCC 16's loop miscompile (the kit's
+# sdl2-config gives it for GCC 16 too).
+OPT     ?= -O2 -fomit-frame-pointer -fno-tree-loop-distribute-patterns
+
+BUILD   = build/amigaos
+OBJDIR  = $(BUILD)/obj
+PROG    = GNURobbo
+OUT     = dist/GNURobbo
+VERSION = $(shell cat VERSION)
+
+DEFS    = -D__amigaos__ -DPLATFORM_PC -DVERSION=\"$(VERSION)\" \
+          -DPACKAGE_DATA_DIR=\"PROGDIR:data\" -DHAVE_DESIGNER \
+          -D_SMOOTH_SCRL_=\"yes\" -DLIGHTNINGENABLED=\"yes\"
+INC     = -Iamiga/include/SDL -Iamiga/include -Iamiga/sdl_ttf -I. -I$(SDLKIT)/include/SDL \
+          -I$(SDLKIT)/include -I$(DEPS)/include
+CFLAGS  = -noixemul $(OPT) $(CPU) -fno-common -MMD -MP -std=gnu99 -w
+LDFLAGS = -noixemul $(CPU) -Wl,--wrap=SDL_RWFromFile -Wl,--wrap=getenv
+LIBS    = -L$(SDLKIT)/lib -L$(DEPS)/lib -lSDL -lfreetype -lpng -lz -lbz2 -lpthread -lm
+
+SRC     = $(sort $(wildcard *.c))
+CSRC    = amiga/stack.c amiga/amiga_env.c amiga/amiga_rwops.c \
+          amiga/sdl_image_lite.c amiga/sdl_mixer_lite.c amiga/png_rgba.c \
+          amiga/sdl_ttf/SDL_ttf.c
+OBJS    = $(SRC:%.c=$(OBJDIR)/%.o) $(CSRC:%.c=$(OBJDIR)/%.o)
+ICONS   = $(wildcard amiga/icons/*.info)
+
+all: $(BUILD)/$(PROG)
+
+$(BUILD)/$(PROG): $(OBJS)
+	$(CC) $(LDFLAGS) -o $@.debug $(OBJS) $(LIBS)
+	$(STRIP) -o $@ $@.debug
+
+$(OBJDIR)/amiga/sdl_ttf/%.o: amiga/sdl_ttf/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -I$(SDLKIT)/include/SDL -I$(DEPS)/include/freetype2 -DAMIGA_NO_FT_STROKER -c -o $@ $<
+
+$(OBJDIR)/amiga/%.o: amiga/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -Iamiga/include/SDL -I$(SDLKIT)/include/SDL -I$(DEPS)/include -I$(NDK) -c -o $@ $<
+
+$(OBJDIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(DEFS) $(INC) -c -o $@ $<
+
+# The drawer: the program, the game's data/ (levels, skins, locales; each
+# skin's robbo.ttf is DejaVu Sans, as Debian links a DejaVu font there),
+# user/ for the settings and the player's levels, ReadMe and the licences.
+dist: $(BUILD)/$(PROG) $(ICONS) AMIGA_PORT.md
+	rm -rf $(OUT) && mkdir -p $(OUT)/user
+	cp $(BUILD)/$(PROG) $(OUT)/
+	cp -R data $(OUT)/data
+	for s in $(OUT)/data/skins/*/; do cp amiga/fonts/DejaVuSans.ttf $$s/robbo.ttf; done
+	cp amiga/fonts/DejaVu-LICENSE.txt $(OUT)/data/skins/DejaVu-LICENSE.txt
+	echo "GNU Robbo keeps its settings (.gnurobbo_rc) and your own levels (.gnurobbo/levels) here." > $(OUT)/user/ReadMe.txt
+	cp AMIGA_PORT.md $(OUT)/ReadMe
+	cp COPYING $(OUT)/COPYING.txt
+	cp amiga/sdl_ttf/COPYING $(OUT)/SDL_ttf-COPYING.txt
+	cp amiga/icons/GNURobbo.info amiga/icons/ReadMe.info $(OUT)/
+	for f in COPYING.txt SDL_ttf-COPYING.txt; do cp amiga/icons/ReadMe.info $(OUT)/$$f.info; done
+	cp amiga/icons/Folder.info $(OUT)/data.info
+	cp amiga/icons/GNURobbo-drawer.info dist/GNURobbo.info
+
+-include $(OBJS:.o=.d)
+
+clean:
+	rm -rf $(BUILD)
+
+.PHONY: all clean dist
