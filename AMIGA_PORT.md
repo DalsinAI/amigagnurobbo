@@ -15,7 +15,10 @@ files), which Debian leaves out of its free source. Debian's patches (0.68+dfsg-
 reproducible-build, gcc-7, single-variable-declarations) are the second
 commit. Branch team2/gnurobbo-amiga.
 
-Status: builds; not yet run in the lab.
+Status: plays in the lab (Instance-45 on GFOpenUp 0.8.19, 6 November
+2026): the menu (DejaVu Sans), level 1 of the Original pack (Robbo
+walking, the gun picked up), Escape to the menu, Options and Exit back to
+the Shell; user/.gnurobborc and user/.gnurobbo/levels written.
 
 
 What you need
@@ -32,7 +35,8 @@ How to play
 
 Open the GNURobbo icon, or run GNURobbo from a Shell. The game reads its
 levels, skins and translations from the drawer's data/ and keeps its
-settings and your own levels in user/. Like Debian's package, it has no
+settings and your own levels in user/. Cursor keys move, cursor + Right
+Shift shoots, R restarts, Escape leaves a level, Exit is on the menu. Like Debian's package, it has no
 sound: the source it is built from has none.
 
 
