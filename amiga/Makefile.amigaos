@@ -79,6 +79,7 @@ dist: $(BUILD)/$(PROG) $(ICONS) AMIGA_PORT.md
 	cp amiga/fonts/DejaVu-LICENSE.txt $(OUT)/data/skins/DejaVu-LICENSE.txt
 	echo "GNU Robbo keeps its settings (.gnurobbo_rc) and your own levels (.gnurobbo/levels) here." > $(OUT)/user/ReadMe.txt
 	cp AMIGA_PORT.md $(OUT)/ReadMe
+	cp amiga/Controls $(OUT)/Controls
 	cp COPYING $(OUT)/COPYING.txt
 	cp amiga/sdl_ttf/COPYING $(OUT)/SDL_ttf-COPYING.txt
 	cp amiga/icons/GNURobbo.info amiga/icons/ReadMe.info $(OUT)/
