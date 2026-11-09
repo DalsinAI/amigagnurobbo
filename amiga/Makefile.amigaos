@@ -83,7 +83,6 @@ dist: $(BUILD)/$(PROG) $(ICONS) AMIGA_PORT.md
 	cp amiga/sdl_ttf/COPYING $(OUT)/SDL_ttf-COPYING.txt
 	cp amiga/icons/GNURobbo.info amiga/icons/ReadMe.info $(OUT)/
 	for f in COPYING.txt SDL_ttf-COPYING.txt; do cp amiga/icons/ReadMe.info $(OUT)/$$f.info; done
-	cp amiga/icons/Folder.info $(OUT)/data.info
 	cp amiga/icons/GNURobbo-drawer.info dist/GNURobbo.info
 
 -include $(OBJS:.o=.d)
